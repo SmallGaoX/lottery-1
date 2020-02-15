@@ -1,0 +1,83 @@
+version: '3'
+services:
+  #基础依赖
+  lottery-redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  #mysql
+  lottery-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root2019
+    ports:
+      - "3306:3306"
+
+  #服务发现与注册
+  lottery-eureka-server:
+    build: lottery-eureka-server/
+    ports:
+      - "8761:8761"
+    depends_on:
+      - lottery-db
+      - lottery-redis
+  #网关
+  lottery-gateway:
+    build: lottery-gateway/
+    ports:
+      - "8040:8040"
+    depends_on:
+      - lottery-eureka-server
+
+  #前后端抽象api层
+  lottery-api:
+    build: lottery-api/
+    ports:
+      - "8089:8089"
+    depends_on:
+      - lottery-gateway
+
+  #后端后端
+  lottery-admin:
+    build: lottery-admin/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - lottery-gateway
+  #后端前端
+  lottery-admin-front:
+    build: lottery-admin-front/
+    ports:
+      - "8082:8082"
+    depends_on:
+      - lottery-admin
+
+
+  #前端后端
+  lottery-web-client:
+    build: lottery-web-client/
+    ports:
+      - "8092:8092"
+    depends_on:
+      - lottery-gateway
+  #前端前端
+  lottery-web:
+    build: lottery-web/
+    ports:
+      - "9001:9001"
+    depends_on:
+      - lottery-web-client
+  #前端前端
+  lottery-web-front:
+    build: lottery-web-front/
+    ports:
+      - "8001:8001"
+    depends_on:
+      - lottery-web
+
+
+
+
+
