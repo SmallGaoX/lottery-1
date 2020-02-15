@@ -7,13 +7,13 @@ services:
       - "6379:6379"
   #mysql
   lottery-db:
-    image: mysql
+    build: /lottery-db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root2019
     ports:
-      - "3306:3306"
+      - "3305:3305"
 
   #服务发现与注册
   lottery-eureka-server:

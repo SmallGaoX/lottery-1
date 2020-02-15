@@ -20,6 +20,19 @@
 		<relativePath />
 	</parent>
 
+	<!-- mvn 版本需要https的支持-->
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>5star</id>
+			<name>5star Repository</name>
+			<url>https://repo.efivestar.com/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
