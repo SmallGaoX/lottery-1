@@ -4,7 +4,7 @@ spring:
   application:
     name: lottery-api-c1
   datasource:
-    url: jdbc:mysql://127.0.0.1:3305/lottery-db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://lottery-db:3305/lottery?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root2019
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -31,7 +31,7 @@ jetcache:
     default:
       type: redis.lettuce
       keyConvertor: fastjson
-      uri: redis://127.0.0.1:6379/
+      uri: redis://lottery-redis:6379/
 eureka:
   client:
     service-url:
